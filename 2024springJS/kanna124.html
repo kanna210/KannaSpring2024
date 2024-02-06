@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data</title>
+</head>
+<body>
+
+    <div id="msg"></div>
+
+    <div id="container" style="background: gray; padding: 10px;">
+        <div id="inside" style="color: white; padding: 10px;">this is inside!</div>
+
+
+    <script type="application/javascript">
+
+        document.write("<p><strong>Hello, how are you doing?!</strong></p>");
+
+        document.write("<div style= 'color: red;'><em>this text is in RED.</em></div>")
+
+        document.getElementById("msg").innerHTML = "this is the \"msg\" &lt;div&gt <div> element.";
+
+        document.getElementById("msg").innerHTML += "<p>this is a new paragrah</p>";
+
+        document.getElementById("inside").insertAdjacentHTML("afterbegin", "Added text");
+        </script>
+</body>
+</html>
