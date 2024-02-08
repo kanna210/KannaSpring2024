@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>number guessing game</title>
+
+    <script>
+        // Number Guessing Game!
+
+        let correctNumber = 54;
+        let gameOver = false;
+        let numberGuess = prompt("Guess a number between 0 and 100:");
+
+        if (numberGuess == correctNumber) {
+	        alert("You guessed correctly!");
+            gameOver = true;
+        }
+        else if (numberGuess < correctNumber) {
+            alert("You guessed too low! you have two more chance");
+            numberGuess = prompt("Guess a number between 0 and 100:");
+        }
+        else {
+            alert("You guessed too high! you have two more chance");
+            numberGuess = prompt("Guess a number between 0 and 100:");
+        }
+
+        if (numberGuess == correctNumber) {
+            if (gameOver == false) {
+                alert("You guessed correctly!");
+                gameOver = true;
+            }
+        }
+        else if (numberGuess < correctNumber) {
+            alert("You guessed too low! one more chance!");
+            numberGuess = prompt("Guess a number between 0 and 100:");
+        }
+        else {
+            alert("You guessed too high! one more chance!");
+            numberGuess = prompt("Guess a number between 0 and 100:");
+        }
+
+        if (numberGuess == correctNumber) {
+            if (gameOver == false) {
+	            alert("You guessed correctly!");
+                gameOver = true;
+            }
+        }
+        else if (numberGuess < correctNumber) {
+            alert("You guessed too low! You lose! sorry!");
+        }
+        else {
+            alert("You guessed too high! You lose! sorry!");
+        }
+    </script>        
+</head>
+<body>
+    
+</body>
+</html>
