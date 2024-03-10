@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Album</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="photos.js"></script>
+    <script src="https://kit.fontawesome.com/979c4d0597.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <h1>Photo Album</h1>
+    </header>
+
+    <div id="container">
+        <div id="photo-container">
+            <div id="photo-highlight">
+                <img src="images/pexels-ricardo-oliveira-13850232-large.jpg" alt="">
+            </div>
+            <div id="photo-info">
+                <div id="title"><h2>Title</h2></div>
+                <div id="caption">Caption</div>
+            </div>
+        </div>
+        <div id="carousel-container">
+            <div id="lt-arrow" class="arrow"><i class="fa-solid fa-angle-left"></i></div>
+            <div id="carousel">
+                <!-- Example line: <div id="thumb-0" class="thumb"></div> -->
+            </div>
+            <div id="rt-arrow" class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>All photos are from <a href="http://www.pexels.com" target="_blank">Pexels.com</a></p>
+    </footer>
+    
+    <script src="photo-album-start.js"></script>
+
+</body>
+</html>
