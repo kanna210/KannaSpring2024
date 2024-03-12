@@ -1,0 +1,120 @@
+* {
+    margin: 0 auto;
+    padding: 0 auto;
+    box-sizing: content-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+}
+
+header {
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+#container,
+#photo-container,
+#photo-info,
+#carousel-container,
+#carousel {
+    display: flex;
+}
+
+#container,
+#photo-container,
+#photo-info {
+    flex-direction: column;
+}
+
+#container {
+    min-height: 80vh;
+}
+
+#photo-container {
+    flex-wrap: wrap;
+}
+
+#photo-highlight img {
+    max-width: 700px;
+    max-height: 500px;
+}
+
+#photo-info {
+    max-width: 500px;
+}
+
+#caption {
+    padding: 10px;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+#carousel-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    width: 100%;
+}
+
+.arrow {
+    visibility: hidden;
+    cursor: pointer;
+    padding: 0 10px;
+    font-size: 2.5rem;
+}
+
+.arrow:hover {
+    opacity: 0.5;
+}
+
+.thumb {
+    cursor: pointer;
+    background-size: cover;
+    background-position: center center;
+    margin: 10px;
+    width: 75px;
+    aspect-ratio: 1/1;
+}
+
+.thumb:hover {
+    opacity: 0.5;
+}
+
+#thumb-0,
+#thumb-1,
+#thumb-2,
+#thumb-3,
+#thumb-4 {
+    background-image: url("images/pexels-anna-shvets-5894032-thumb.jpg");
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    display: flex;
+    background-color: white;
+    margin: 0 auto;
+    padding: 5px;
+    font-size: 0.75rem;
+    width: 100%;
+}
+
+footer p {
+    text-align: center;
+}
+
+footer a {
+    color: black;
+    text-decoration: none;
+}
+
