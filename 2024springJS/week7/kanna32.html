@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giphy Search Exercise</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="container">
+        <form id="search-form">
+            <h2>Find Your GIFs</h2>
+            <label>Search Term: </label>
+            <input type="text" name="searchTerm" id="searchTerm">
+            <input type="button" onclick="updateSearch()" name="searchBtn" id="searchBtn" value="Get gifs">
+        </form>
+        <h2>Search Results:</h2>
+        <div id="content"></div>
+    </div>
+    
+    <script>
+        function searchGIPHY(searchWord) {
+            let endpoint = "http://ofPkvyD89b2Nn8J6CzMv69mA87Gjhlpw" + searchWord;
+
+            let request = new XMLHttpRequest();
+
+            request.open('GET', endpoint);
+
+            request.onload = function() {
+
+                let response = request.response;
+                
+                let parsedData = JSON.parse(response);
+
+                for (let image in parsedData.data) {
+                    document.getElementById("content").innerHTML += `
+                        <div class="data">
+                            <img src="${parsedData.data[image].images.original.url}" alt="">
+                        </div>
+                    `;
+                }
+            
+                console.log(parsedData);
+            
+
+            }
+
+            try {
+                request.send();
+            } 
+            catch(err) {
+                console.log("Error: " + err.message);
+            }
+        }
+
+        function updateSearch() {
+            let searchFormEntry = document.forms["search-form"].searchTerm.value;
+
+            searchGIPHY(searchFormEntry);
+        }
+    </script>
+
+<form id="contactForm" action="" method="get">
+    <div class="formField">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" onkeyup="updateResults()">
+    </div>
+    <div class="formField">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName"  onkeyup="updateResults()">
+    </div>
+    <div class="formField">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"  onkeyup="updateResults()">
+    </div>
+    <div class="formField">
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="ex: 555-555-5555"  onkeyup="updateResults()">
+    </div>
+    <div class="formField">
+        <label for="canText">Check here if we can text you at the number above: </label>
+        <input type="checkbox" id="canText" name="canText" checked onchange="updateResults()">
+    </div>
+    <div class="formField">
+        <label>Font type: </label><br>
+        <input type="radio" id="serif" name="fontType" value="serif" checked onclick="updateResults()" onkeyup="updateResults()"> 
+        <label for="serif">Serif</label><br>
+        <input type="radio" id="sans" name="fontType" value="sans" onclick="updateResults()"> 
+        <label for="sans">Sans Serif</label><br>
+        <input type="radio" id="script" name="fontType" value="script" onclick="updateResults()"> 
+        <label for="script">Script</label>
+    </div>
+    <div class="formField">
+        <label for="textSize">Choose your text size:</label>
+        <select id="textSize" name="textSize" onclick="updateResults()">
+            <option value="small">Small</option>
+            <option value="medium" selected>Medium</option>
+            <option value="large">Large</option>
+        </select>
+    </div>
+    <div class="formField">
+        <label for="appointmentDate">When would you like to visit? </label>
+        <input type="date" id="appointmentDate" name="appointmentDate"  onblur="updateResults()">
+    </div>
+    <div class="formField">
+        <label for="bgcolor">Background color: </label>
+        <input type="color" id="bgcolor" name="bgcolor" value="#ffffff" onblur="updateResults()">
+    </div>
+    <div class="formField">
+        <label for="comments">Comments:</label><br>
+        <textarea id="comments" name="comments"  onkeyup="updateResults()">Add a comment...</textarea>
+    </div>
+    <button type="submit" value="submit" id="submitButton">Submit</button>
+</form>
+
+<div id="formResults"></div>
+
+<script>
+    const queryString = window.location.search;
+
+    if (queryString != "") {
+        const urlParams = new URLSearchParams(queryString);
+        console.log(urlParams);
+
+
+        const fName = urlParams.get('firstName');
+        const lName = urlParams.get('lastName');
+        const email = urlParams.get('email');
+        const phone = urlParams.get('phone');
+        const canText = urlParams.get('canText');
+        const fontType = urlParams.get('fontType');
+        const textSize = urlParams.get('textSize');
+        const appointmentDate = urlParams.get('appointmentDate');
+        const bgcolor = urlParams.get('bgcolor');
+        const comments = urlParams.get('comments');
+
+        // Show information in the formResults section
+        document.getElementById("formResults").innerHTML = "<p>Form Results:</p>" +
+        "<p>Name: " + fName + " " + lName + "</p>" +
+        "<p>Email: " + email + "</p>" + 
+        "<p>Phone: " + phone + "</p>" +
+        "<p>Can text? " + canText + "</p>" +
+        "<p>Font type: " + fontType + "</p>" +
+        "<p>Text size: " + textSize + "</p>" +
+        "<p>Appointment date: " + appointmentDate + "</p>" +
+        "<p>Background color: " + bgcolor + "</p>" +
+        "<p>Comments:<br>" + comments + "</p>";
+
+        document.body.style.backgroundColor = bgcolor;
+
+        document.body.style.fontSize = textSize;
+        
+        switch (fontType) {
+            case "serif":
+                document.getElementById("contactForm").style.fontFamily = "Georgia, Times New Roman, Times, serif";
+                document.getElementById("formResults").style.fontFamily = "Georgia, Times New Roman, Times, serif";
+                break;
+            case "sans":
+                document.getElementById("contactForm").style.fontFamily = "Arial, sans-serif";
+                document.getElementById("formResults").style.fontFamily = "Arial, sans-serif";
+                break;
+            case "script":
+                document.getElementById("contactForm").style.fontFamily = "'Courier New', Courier, monospace";
+                document.getElementById("formResults").style.fontFamily = "'Courier New', Courier, monospace";
+                break;
+            default:
+                document.getElementById("contactForm").style.fontFamily = "Georgia, Times New Roman, Times, serif";
+                document.getElementById("formResults").style.fontFamily = "Georgia, Times New Roman, Times, serif";
+                break;
+        }
+    }
+
+    function updateResults() {
+        // Variables for the form values
+        let fName = document.forms["contactForm"].firstName.value;
+        let lName = document.forms["contactForm"].lastName.value;
+        let email = document.forms["contactForm"].email.value;
+        let phone = document.forms["contactForm"].phone.value;
+        let canText = document.forms["contactForm"].canText.value;
+        let fontType = document.forms["contactForm"].fontType.value;
+        let textSize = document.forms["contactForm"].textSize.value;
+        let appointmentDate = document.forms["contactForm"].appointmentDate.value;
+        let bgcolor = document.forms["contactForm"].bgcolor.value;
+        let comments = document.forms["contactForm"].comments.value;
+
+        // Show information in the formResults section
+        document.getElementById("formResults").innerHTML = "<p>Form Results:</p>" +
+        "<p>Name: " + fName + " " + lName + "</p>" +
+        "<p>Email: " + email + "</p>" + 
+        "<p>Phone: " + phone + "</p>" +
+        "<p>Can text? " + canText + "</p>" +
+        "<p>Font type: " + fontType + "</p>" +
+        "<p>Text size: " + textSize + "</p>" +
+        "<p>Appointment date: " + appointmentDate + "</p>" +
+        "<p>Background color: " + bgcolor + "</p>" +
+        "<p>Comments:<br>" + comments + "</p>";
+
+        document.body.style.backgroundColor = bgcolor;
+
+        document.body.style.fontSize = textSize;
+        
+        switch (fontType) {
+            case "serif":
+                document.getElementById("contactForm").style.fontFamily = "Georgia, Times New Roman, Times, serif";
+                document.getElementById("formResults").style.fontFamily = "Georgia, Times New Roman, Times, serif";
+                break;
+            case "sans":
+                document.getElementById("contactForm").style.fontFamily = "Arial, sans-serif";
+                document.getElementById("formResults").style.fontFamily = "Arial, sans-serif";
+                break;
+            case "script":
+                document.getElementById("contactForm").style.fontFamily = "'Courier New', Courier, monospace";
+                document.getElementById("formResults").style.fontFamily = "'Courier New', Courier, monospace";
+                break;
+            default:
+                document.getElementById("contactForm").style.fontFamily = "Georgia, Times New Roman, Times, serif";
+                document.getElementById("formResults").style.fontFamily = "Georgia, Times New Roman, Times, serif";
+                break;
+        }
+    }
+</script>
+
+</body>
+</html>
