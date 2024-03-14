@@ -3,10 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>number guessing game</title>
+    <title>number guessing game and fruit choosing </title>
 
     <script>
-        // Number Guessing Game!
+    let fruitChosen = "apple";
+
+    switch (colorChosen) {
+        case "peach":
+            console.log("The chosen fruit is not in season now.");
+            break;
+        case "apple":
+            console.log("The chosen fruit is in season.");
+        case "pear":
+            console.log("The chosen fruit is on sale!");
+            break;
+        default:
+            console.log("The chosen fruit is unavailable or unknown.");
+    }
+
+
+       // Number Guessing Game!
 
         let correctNumber = 54;
         let gameOver = false;
