@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giphy Search Exercise</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="container">
+        <h2>Search Results:</h2>
+        <div id="content"></div>
+    </div>
+    
+    <script>
+        let endpoint = "http://api.giphy.com/v1/gifs/search";
+
+        let request = new XMLHttpRequest();
+
+        request.open('GET', endpoint);
+
+        request.onload = function() {
+
+            let response = request.response;
+            
+            let parsedData = JSON.parse(response);
+
+            for (let image in parsedData.data) {
+                document.getElementById("content").innerHTML += `
+                    <div class="data">
+                        <img src="${parsedData.data[image].images.original.url}" alt="">
+                    </div>
+                `;
+            }
+            
+            // View in Console (optional)
+            console.log(parsedData);
+            
+            // Add code below this line to work with the parsedData object
+
+        }
+
+        try {
+            request.send();
+        } 
+        catch(err) {
+            console.log("Error: " + err.message);
+        }
+    </script>
+
+    <script>
+       // Get Data with Fetch
+       async function getData() {
+
+// Fetch file
+const response = await fetch("data/test.csv");
+
+// Parse data
+const data = await response.text();
+
+//View in Console
+console.log(data);
+
+// Split into Rows
+let rows = data.split("\n");
+
+let title = rows[0];
+
+rows.shift();
+rows.pop();
+
+console.log(rows[0].split(","));
+
+let yearObjs = [];
+
+for (let i = 0; i < rows.length; i++) {
+    yearObjs.push({});
+
+    yearObjs[i].year = rows[i].split(",")[0];
+    yearObjs[i].global = rows[i].split(",")[1];
+    yearObjs[i].north = rows[i].split(",")[2];
+    yearObjs[i].south = rows[i].split(",")[3];
+}
+
+console.log(yearObjs);
+
+document.getElementById("title").innerHTML = title;
+
+for (let i = 0; i < rows.length; i++) {
+    document.getElementById("data-table").innerHTML += `
+        <tr>
+            <td>${yearObjs[i].year}</td>
+            <td>${yearObjs[i].global}</td>
+            <td>${yearObjs[i].north}</td>
+            <td>${yearObjs[i].south}</td>
+        </tr>
+    `;
+}
+}
+
+getData();
+    </script>
+</body>
+</html>

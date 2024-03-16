@@ -20,7 +20,7 @@
             }
         }
 
-        alert("You guessed the number!");
+        alert("You guessed the number! congrats!");
 
     </script>
 
@@ -45,6 +45,15 @@
 
 </head>
 <body>
+
+    <div id="content"></div>
+    <script>
+        let word = "kanna";
+
+        for (let x of word) {
+            document.getElementById("content").innerHTML += x + "<br>";
+        }
+    </script>
     
     <div id="content"></div>
 
@@ -90,39 +99,26 @@
 
 </script>
 
+<div id="content"></div>
+
+<script>
+
+    let names = [
+        ["Kanna", "sugiyama"],
+        ["Cecilia", "something"],
+        ["Dylan", "Hynke"]
+    ]
+
+    names.push("Natsuko", "Sugiyama");
+
+    for (let x in names) {
+        document.getElementById("content").innerHTML += "Full Name: " + names[x][0] + " " + names[x][1] + "<br>";
+    }
+
+</script>
+
 
 </body>
 </html>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-
-    <div id="content"></div>
-
-    <script>
-
-        let item = [
-            "Apples",
-            "Bananas",
-            "Cherries",
-            "Dates",
-            "Peaches"
-        ];
-        
-        document.getElementById("content").innerHTML = "My list of items:<br><br>";
-
-        for (let i = 0; i < items.length; i++) {
-            document.getElementById("content").innerHTML += items[i] + "<br>";
-        }
-
-    </script>
-    
-</body>
-</html>
