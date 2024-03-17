@@ -1,11 +1,13 @@
+
 /**
- * Uses Pexels API to pull data that fits the criteria provided
+ * it is not finished yet
  * @param { string } searchWord - Search term
  * @param { string[] } orientation - Array of orientations
  */
 function searchPexels(searchWord, orientation) {
 
-    let endpoint = "https://api.pexels.com/v1/";
+    let endpoint = "https://api.pexels.com/v1/krqwUuDzgGkcD19IBN78SGLEHRIqOkGwjKpJ4xRHF2jmmGFl5pwOvMQh";
+    
 
     // Checks for search term and provides a message if blank
     if (searchWord != "" && searchWord != null) {
@@ -61,24 +63,10 @@ function searchPexels(searchWord, orientation) {
         document.getElementById("page-number").innerHTML = ""; // Clears page number
 
         document.getElementById("page-number").innerHTML += `
-            <button type="button" id="prev" onclick="updatePage(-1)"> &lt; </button>
-            <input type="text" id="pageNumber" name="pageNumber" onchange="goToPage()" style="text-align: center; width: 30px;" value="${Math.floor(Number(currentStart) / perPage + Number(1))}">
-            <button type="button" id="next"onclick="updatePage(1)"> &gt; </button>
+            <button type="button" onclick="updatePage(-1)" id="prev"> &lt; </button>
+            <input type="text" id="pageNumber" name="pageNumber" onchange="goToPage()" style="text-align: center; width: 30px;" value="${(Number(currentStart) / perPage + Number(1))}">
+            <button type="button" onclick="updatePage(1)" id="next"> &gt; </button>
         `;
-
-        if (document.getElementById("pageNumber").value == 1) {
-            document.getElementById("prev").disabled = true;
-        }
-        else {
-            document.getElementById("prev").disabled = false;
-        }
-
-        if (document.getElementById("pageNumber").value == Math.floor(total/perPage)) {
-            document.getElementById("next").disabled = true;
-        }
-        else {
-            document.getElementById("next").disabled = false;
-        }
         
         document.getElementById("results-per-page").innerHTML = `
             Results per page: 
@@ -117,62 +105,13 @@ function updatePage(newPage) {
 function goToPage() {
     let newPage = document.getElementById("pageNumber").value;
 
-    // Checks if not a number (NaN)
-    if (isNaN(Number(newPage)) == false) {
+    currentStart = (Number(newPage) - 1) * perPage;
 
-        // Checks if page number is too big, goes to last page
-        if ((Number(newPage)) * (perPage * 2) > total) {
-            currentStart = (Math.floor(total/perPage) * perPage) - perPage;
-
-            updateSearch();
-        }
-
-        // Checks if page number is positive, goes to page
-        else if (newPage > 0) {
-            currentStart = (Number(newPage) - 1) * perPage;
-
-            updateSearch();
-        }
-
-        // if nother else is true, it must be negative and goes to page 1
-        else {
-            currentStart = 0;
-
-            updateSearch();
-        }
-    }
-    else {
-        alert("Please use a number.");
-    }
+    updateSearch();
 }
 
 function updatePerPage() {
+    perPage = document.getElementById("perPage").value;
 
-    // Checks if it's a number
-    if (isNaN(Number(document.getElementById("perPage").value)) == false) {
-
-        // Checks if it's too big and sets it to the total if it is
-        if (document.getElementById("perPage").value > total - 1) {
-            perPage = total;
-
-            updateSearch();
-        }
-
-        // Checks if it's positive
-        else if (document.getElementById("perPage").value > 0) {
-            perPage = document.getElementById("perPage").value;
-
-            updateSearch();
-        }
-
-        // If not, sets to one per page
-        else {
-            perPage = 1;
-
-            updateSearch();
-        }
-    }
-    else {
-        alert("Please use a number.");
-    }
+    updateSearch();
 }

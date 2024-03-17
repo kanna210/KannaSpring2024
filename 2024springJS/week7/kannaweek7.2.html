@@ -3,130 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of Items</title>
-
-    <style>
-        .button {
-            display: inline-block;
-            cursor: pointer;
-            background: rgb(213, 119, 119);
-            margin: 10px 0;
-            border-radius: 4px;
-            padding: 10px;
-        }
-    </style>
+    <title>C is for Cookie</title>
 </head>
 <body>
 
-    <form id="list-form">
-        <input type="hidden" id="id" name="id" value="">
-    
-        <label for="name">Item Name:</label><br>
-        <input type="text" id="name" name="name"><br>
-    
-        <label for="amount">Amount:</label><br>
-        <input type="number" id="amount" name="amount"><br>
-    
-        <div id="add-item-btn" class="button" onclick="addItem()">Add Item</div>
-        <div id="update-item-btn" class="button" style="display: none;" onclick="saveItem()">Update Item</div>
-    </form>
+    <div id="form-area">
+        <form action="" id="user-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br><br>
 
-    <h2>My List:</h2>
-    <div id="list"></div>
+            <label for="fontColor">Prefered font color:</label> 
+            <input type="color" id="fontColor" name="fontColor"><br><br>
+
+            <button type="button" id="save-btn" onclick="saveValues()">Save Info</button>
+
+        </form>
+    </div>
+
+    <div id="results-area"></div>
 
     <script>
-        class ListItem {
-            constructor(id, itemName, amount) {
-                this.id = id;
-                this.itemName = itemName;
-                this.amount = amount;
-            }
+        let name, fontColor;
+    
+        function saveValues() {
+            name = document.forms["user-form"].name.value;
+            fontColor = document.forms["user-form"].fontColor.value;
+
+            setCookie();
         }
 
-        let items = [];
+        function setCookie() {
 
-        function addItem() {
-                
-            let id;
-            
-            if (items.length == 0) {
-                id = 1;
-            }
-            else {
-                id = items[items.length - 1].id + 1;
-            }
-            
-            let itemNameValue = document.forms["list-form"]["name"].value;
-            let amountValue = document.forms["list-form"]["amount"].value;
-            
-            let itemToAdd = new ListItem(id, itemNameValue, amountValue);
-            
-            items.push(itemToAdd);
-            
-            clearForm();
-            
-            displayList();
+        // Create JavaScript object
+        let cookieObj = {
+            user_name: name,
+            font_color: fontColor
         }
 
-        function removeItem(idToRemove) {
-            for (let x in items) {
-                if (items[x].id == idToRemove) {
-                    items.splice(x, 1);
+        // Convert object to a JSON string
+        let cookieJSON = JSON.stringify(cookieObj);
+
+        // Create an expiration date that is 30 days from now
+        let expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 30);
+
+        // Set the cookie
+        document.cookie = "cookie_data=" + cookieJSON + "; expires=" + expirationDate;
+        }
+
+
+        function getCookie(cookieName) {
+            // Get the cookie info
+            let c_name = cookieName;
+            let decodedCookie = decodeURIComponent(document.cookie);
+            
+            // Split the cookie at the semicolon to separate the expiration date
+            let cookieArray = decodedCookie.split(";");
+
+            // Go through the array and separate out the JSON data
+            for (let i = 0; i < cookieArray.length; i++) {
+                let cookieValue = cookieArray[i];
+
+                while (cookieValue.charAt(0) == ' ') {
+                    cookieValue = cookieValue.substring(1);
                 }
-            }
-            
-            clearForm();
-            
-            displayList();
-        }
 
-        function updateItem(idToUpdate) {
-            for (let x in items) {
-                if (items[x].id == idToUpdate) {
-                    document.forms["list-form"]["id"].value = items[x].id;
-                    document.forms["list-form"]["name"].value = items[x].itemName;
-                    document.forms["list-form"]["amount"].value = items[x].amount;
-                }
-            }
-            
-            document.getElementById("add-item-btn").style.display = "none";
-            document.getElementById("update-item-btn").style.display = "inline-block";
-        }
-
-        function saveItem() {
-            idToSave = document.forms["list-form"]["id"].value;
-
-            for (let x in items) {
-                if (items[x].id == idToSave) {
-                    items[x].itemName = document.forms["list-form"]["name"].value;
-                    items[x].amount = document.forms["list-form"]["amount"].value;
-                }
-            }
-            
-            document.getElementById("add-item-btn").style.display = "inline-block";
-            document.getElementById("update-item-btn").style.display = "none";
-            
-            clearForm();
-            
-            displayList();
-        }
-
-        function displayList() {
-                
-                for (let x in items) {
-                    document.getElementById("list").innerHTML += items[x].itemName + 
-                        " - " + items[x].amount + " <span onclick='updateItem(" + 
-                        items[x].id + ")'>[update]</span> <span onclick='removeItem(" + 
-                        items[x].id + ")'>[remove]</span><br>";
+                if (cookieValue.indexOf(c_name) == 0) {
+                    return cookieValue.substring(c_name.length + 1, cookieValue.length);
                 }
             }
 
-        function clearForm() {
-            document.forms["list-form"]["name"].value = "";
-            document.forms["list-form"]["amount"].value = "";
-
-            document.getElementById("list").innerHTML = "";
+            return "";
         }
+
+        function checkCookie() {
+            let cookieData = getCookie("cookie_data");
+
+            // Check if cookie is set
+            if (cookieData != "" && cookieData != null) {
+
+                // Convert to a JavaScript Object
+                let cookieDataParsed = JSON.parse(cookieData);
+
+                // Use the data in the second div tag
+                document.getElementById("results-area").style.color = cookieDataParsed.font_color;
+                document.getElementById("results-area").innerHTML = "Hello, " + cookieDataParsed.user_name;
+            }
+        }
+
+        checkCookie();
     </script>
     
 </body>

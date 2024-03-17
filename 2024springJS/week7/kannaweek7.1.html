@@ -3,61 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giphy Search Exercise</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Looking at Functions</title>
+
+    <style>
+        #btn { 
+            cursor: pointer; 
+            background-color: rgb(0, 255, 34);
+            border-radius: 10px;
+            padding: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            width: fit-content;
+        }
+
+        #btn:hover { background-color: peachpuff; }
+    </style>
 </head>
 <body>
 
-    <div id="container">
-        <form id="search-form">
-            <h2>Find Your GIFs</h2>
-            <label>Search Term: </label>
-            <input type="text" name="searchTerm" id="searchTerm">
-            <input type="button" onclick="updateSearch()" name="searchBtn" id="searchBtn" value="Get gifs">
-        </form>
-        <h2>Search Results:</h2>
-        <div id="content"></div>
-    </div>
-    
+    <div id="btn" onclick="addOne()">Click here to add 1!</div>
+
     <script>
-        function searchGIPHY(searchWord) {
-            let endpoint = "http://ofPkvyD89b2Nn8J6CzMv69mA87Gjhlpw" + searchWord;
+        let givenNumber = 1;
 
-            let request = new XMLHttpRequest();
-
-            request.open('GET', endpoint);
-
-            request.onload = function() {
-
-                let response = request.response;
-                
-                let parsedData = JSON.parse(response);
-
-                for (let image in parsedData.data) {
-                    document.getElementById("content").innerHTML += `
-                        <div class="data">
-                            <img src="${parsedData.data[image].images.original.url}" alt="">
-                        </div>
-                    `;
-                }
+        function addOne() {
+            givenNumber += 1;
+            alert(givenNumber);
             
-                console.log(parsedData);
-            
-
-            }
-
-            try {
-                request.send();
-            } 
-            catch(err) {
-                console.log("Error: " + err.message);
-            }
-        }
-
-        function updateSearch() {
-            let searchFormEntry = document.forms["search-form"].searchTerm.value;
-
-            searchGIPHY(searchFormEntry);
+            return givenNumber;
         }
     </script>
 
@@ -100,7 +72,7 @@
         </select>
     </div>
     <div class="formField">
-        <label for="appointmentDate">When would you like to visit? </label>
+        <label for="appointmentDate">When would you like a visit? </label>
         <input type="date" id="appointmentDate" name="appointmentDate"  onblur="updateResults()">
     </div>
     <div class="formField">
@@ -123,7 +95,7 @@
         const urlParams = new URLSearchParams(queryString);
         console.log(urlParams);
 
-
+        // Variables for the form values
         const fName = urlParams.get('firstName');
         const lName = urlParams.get('lastName');
         const email = urlParams.get('email');
@@ -220,6 +192,5 @@
         }
     }
 </script>
-
 </body>
 </html>
