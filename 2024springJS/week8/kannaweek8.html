@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pexels API and Pagination Example</title>
+    <link rel="stylesheet" type="text/css" href="photo-album-start/style.css">
+    <script type="application/javascript" src="apiresultsweek8.js"></script>
+    <script>
+        let perPage = 10;
+        let currentStart = 0;
+        let total;
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Pexel Photo Search</h1>
+        <p>Use the search on the left to search for photos from <a href="http://www.pexels.com">Pexels.com</a>, a free photo and video resource.</p>
+    </header>
+    <div id="container">
+        <div id="search-sidebar">
+            <form id="search-form">
+                <div class="form-field">
+                    <label class="top-label" for="searchTerm">Search Term:</label><br>
+                    <input type="text" name="searchTerm" id="searchTerm">
+                </div>
+
+                <div class="form-field">
+                    <label class="top-label" for="orientation">Orientation:</label><br>
+                    <select name="orientation" id="orientation">
+                        <option value="any"> <label for="any">Any</label>
+                        <option value="landscape"> <label for="landscape">Landscape/Horizontal</label>
+                        <option value="portrait"> <label for="portrait">Portrait/Vertical</label>
+                        <option value="square"> <label for="square">Square</label>
+                    </select>
+                </div>
+
+                <button type="submit" id="update-search" name="update-search" onclick="updateSearch()">Update Search</button>
+            </form>
+
+            <div id="page-results">
+                <p id="total-results"></p>
+                <p id="page-number"></p>
+                <p id="results-per-page"></p>
+            </div>
+        </div>
+        <div id="search-results"></div>
+    </div>
+    <footer>
+
+    </footer>
+
+    <script>
+        document.getElementById("update-search").addEventListener("click", function(event){
+            event.preventDefault()
+        });
+    </script>
+    
+</body>
+</html>

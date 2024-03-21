@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapBox Example</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+    <div id="map"></div>
+
+    <script>
+        // Global Variables
+
+        let latitude = 55.70651;
+        let longitude = 12.554729;
+
+        function createMap() {
+
+            mapboxgl.accessToken = 'pk.eyJ1Ijoia2FubmEzMTkiLCJhIjoiY2x0eWlsOGxqMGkxZzJubXMzbmF6b3R2eiJ9.nXAa0QUOBclSP3BJGHMUEQ';
+    
+            const map = new mapboxgl.Map({
+                container: 'map',
+                // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+                style: 'mapbox://styles/mapbox/streets-v12',
+                center: [longitude, latitude],
+                zoom: 8
+            });
+
+            // Create a default Marker and add it to the map.
+            const marker1 = new mapboxgl.Marker()
+                .setLngLat([longitude, latitude])
+                .addTo(map);
+
+        }
+
+        function sendRequest() {
+
+            // HTTP Request
+
+            let endpoint = "https://api.wheretheiss.at/v1/satellites/25544'";
+        
+            let request = new XMLHttpRequest();
+        
+            request.open('GET', endpoint);
+        
+            request.onload = function() {
+        
+                let response = request.response;
+            
+                let parsedData = JSON.parse(response);
+            
+                // View in Console (optional)
+                console.log(parsedData);
+                
+                // Add code below this line to work with the parsedData object
+
+                // Show the returned data, the response, in the browser's console
+
+                latitude = parsedData.latitude;
+                longitude = parsedData.longitude;
+
+                document.getElementById("content").innerHTML = `
+                    The ${parsedData.name} is currently 
+                    at the coordinates of (${parsedData.latitude}, ${parsedData.longitude}) 
+                    and the altitude of ${parsedData.altitude} ${parsedData.units}.
+                `;
+
+                createMap();
+        
+            }
+        
+            try {
+                request.send();
+            } 
+            catch(err) {
+                console.log("Error: " + err.message);
+            }
+        }
+
+        sendRequest();
+    </script>
+</body>
+</html>
