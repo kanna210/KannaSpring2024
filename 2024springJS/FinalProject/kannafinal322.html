@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple To-Do List with Delete Confirmation</title>
+</head>
+<body>
+
+<h2>My To-Do List</h2>
+
+<input type="text" id="taskInput" placeholder="Enter a new task...">
+<button onclick="addTask()">Add Task</button>
+
+<ul id="taskList"></ul>
+
+<script>
+function addTask() {
+    let taskInput = document.getElementById("taskInput");
+    let task = taskInput.value.trim();
+
+    if (task !== '') {
+        var li = document.createElement("li");
+        li.textContent = task;
+
+        let doneButton = document.createElement("button");
+        doneButton.textContent = "Done";
+        doneButton.onclick = function() {
+            li.style.textDecoration = "line-through";
+        };
+        li.appendChild(doneButton);
+
+        let removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        removeButton.onclick = function() {
+            if (confirm("Are you sure you want to delete this task?")) {
+                li.remove();
+            }
+        };
+        li.appendChild(removeButton);
+
+        document.getElementById("taskList").appendChild(li);
+        taskInput.value = '';
+
+        // Focus on the input field again after adding a task
+        taskInput.focus();
+    } else {
+        alert("Please enter a task.");
+    }
+}
+
+// Set focus to the input field when the page loads
+window.onload = function() {
+    document.getElementById("taskInput").focus();
+};
+
+</script>
+
+</body>
+</html>
+
+
