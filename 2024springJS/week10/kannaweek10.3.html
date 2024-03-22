@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChartJS Example 2</title>
+</head>
+<body>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        const ctx = document.getElementById('myChart');
+        let states = [];
+        let populations = [];
+
+        // Get Data with Fetch
+        async function getData() {
+
+            // Fetch file
+            const response = await fetch("census.csv");
+
+            // Parse data
+            const data = await response.text();
+
+            //View in Console
+            console.log(data);
+
+            // Split into Rows
+            let rows = data.split("\n");
+
+            rows.shift();
+            rows.pop();
+
+            console.log(rows);
+
+            let filteredRows = [];
+
+            for (let x in rows) {
+                if (rows[x].split(",")[2] == "1910") {
+                    filteredRows.push(rows[x]);
+                }
+            }
+
+            for (let i = 0; i < 5; i++) {
+                filteredRows.pop();
+            }
+
+            for (let x in filteredRows) {
+                states.push(filteredRows[x].split(",")[0]);
+
+                let splitRow = filteredRows[x].split(`\"`);
+
+                let finalNumber = splitRow[1].replace(/,/g, "");
+
+                populations.push(Number(finalNumber));
+            }
+
+            console.log(states);
+            console.log(populations);
+
+            makeChart();
+        }
+
+        getData();
+        
+        function makeChart() {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: states,
+                    datasets: [{
+                        label: '1910 State Populations',
+                        data: populations,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
