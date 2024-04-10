@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p5.js</title>
+    <!-- Include the p5.js library from a CDN -->
+    <script src="https://editor.p5js.org/"></script>
+</head>
+<body>
+    
+    
+    <script>
+        let circleDiam = 50;
+        let fromTop = 165;
+        let x = 0;
+
+        function setup() {
+          createCanvas(400, 400);
+          background(220);
+        }
+
+        function draw() {
+          for (let i = 0; i < 9; i++) {
+            circle(x, fromTop, circleDiam);
+            x += 50;
+          }
+        }
+    </script>
+</body>
+</html>

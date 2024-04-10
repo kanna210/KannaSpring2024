@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Exercise 2 - Weee!</title>
+    <script src="jquery-3.7.1.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: content-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 0.8rem;
+        }
+
+        #square {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+            background-color: #ddd;
+            margin: 10px;
+            padding: 10px;
+            aspect-ratio: 1/1;
+            width: 100px;
+        }
+
+        #square p {
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        #square:hover {
+            background-color: rgb(243, 197, 163);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="square">
+        <p id="square-message">Click me!</p>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#square").click(function () {
+                $("#square-message").html("Weee!");
+                $("#square").css("background-color", "lightgreen");
+                $("#square").animate({left: "600px"}, 2000);
+            });
+
+            $("#square").mouseover(function () {
+                $("#square-message").html("I'm so excited!!");
+                $("#square").animate({left: "10px"}, 100);
+                $("#square").animate({top: "10px"}, 100);
+                $("#square").animate({left: "0"}, 100);
+                $("#square").animate({top: "0"}, 100);
+            });
+        });
+    </script>
+    
+</body>
+</html>
