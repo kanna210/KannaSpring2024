@@ -57,3 +57,11 @@ const Museums = [
 let jsonString = JSON.stringify(Museums);
 
 console.log(jsonString);
+
+function getWebsite(id) {
+    for (let x of Museums) {
+        if (x.id == id) {
+            return x.website;
+        }
+    }
+}
