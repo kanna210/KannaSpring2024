@@ -2,15 +2,40 @@
 <html>
 <head>
     <title>Simple To-Do List with Delete Confirmation</title>
-
     <style>
-        .button {
-            display: inline-block;
+        
+        .addButton {
+            background-color: blue;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            background: rgb(235, 189, 189);
-            margin: 10px 0;
-            border-radius: 4px;
-            padding: 10px;
+        }
+
+        .removeButton {
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .doneButton {
+            background-color: green;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        body {
+            background-image: url('https://www.hpcwire.com/wp-content/uploads/2018/05/shutterstock_192662930-675x380.jpg'); 
+            background-size: cover; 
+            background-position: top;
+            background-repeat: no-repeat;
         }
     </style>
 </head>
@@ -19,7 +44,7 @@
 <h2>My To-Do List</h2>
 
 <input type="text" id="taskInput" placeholder="Enter a new task...">
-<button onclick="addTask()">Add Task</button>
+<button class="addButton" onclick="addTask()">Add Task</button>
 
 <ul id="taskList"></ul>
 
@@ -34,6 +59,7 @@ function addTask() {
 
         let doneButton = document.createElement("button");
         doneButton.textContent = "Done";
+        doneButton.className = "doneButton";
         doneButton.onclick = function() {
             li.style.textDecoration = "line-through";
         };
@@ -41,6 +67,7 @@ function addTask() {
 
         let removeButton = document.createElement("button");
         removeButton.textContent = "Remove";
+        removeButton.className = "removeButton";
         removeButton.onclick = function() {
             if (confirm("Are you sure you want to delete this task?")) {
                 li.remove();
@@ -67,5 +94,3 @@ window.onload = function() {
 
 </body>
 </html>
-
-
