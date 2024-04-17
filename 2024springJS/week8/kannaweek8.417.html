@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pexels API and Pagination Example</title>
+   
+    <script>
+        function splitInput() {
+            let inputText = document.getElementById('textInput').value;
+            let resultArea = document.getElementById('result');
+            let array = inputText.split(',');
+            resultArea.innerHTML = 'Array: ' + array.join(', ');
+            return array;
+        }
+
+        function shiftElement() {
+            let array = splitInput();
+            array.shift();
+            document.getElementById('result').innerHTML = 'After Shift: ' + array.join(', ');
+        }
+
+        // Function to unshift a new element to the array
+        function unshiftElement() {
+            let newElement = document.getElementById('newElement').value;
+            let array = splitInput();
+            array.unshift(newElement);
+            document.getElementById('result').innerHTML = 'After Unshift: ' + array.join(', ');
+        }
+    </script>
+</head>
+<body>
+    <h1>Array with JavaScript week8</h1>
+    <input type="text" id="textInput" placeholder="Enter elements separated by commas" />
+    <button onclick="splitInput()">Split Text</button>
+    <br>
+    <button onclick="shiftElement()">First Element</button>
+    <button onclick="unshiftElement()">Unshift New Element</button>
+    <input type="text" id="newElement" placeholder="Enter new element to add" />
+    <div id="result"></div>
+</body>
+</html>
